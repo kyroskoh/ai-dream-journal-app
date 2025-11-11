@@ -145,18 +145,21 @@ const DreamRecorder: React.FC<DreamRecorderProps> = ({ onRecordingStart, onRecor
   };
   
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div>
         <button
           onClick={handleToggleRecording}
-          className={`relative flex items-center justify-center w-24 h-24 rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-500/50 ${
+          className={`relative flex items-center justify-center w-24 h-12 md:w-auto md:px-4 md:h-12 rounded-full md:rounded-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-500/50 ${
             isRecording ? 'bg-red-600 hover:bg-red-700' : 'bg-purple-600 hover:bg-purple-700'
           }`}
           aria-label={isRecording ? 'Stop recording' : 'Start recording'}
         >
-          {isRecording && <div className="absolute inset-0 rounded-full bg-red-500 animate-pulse"></div>}
-          {isRecording ? <StopIcon className="w-10 h-10 text-white" /> : <MicIcon className="w-10 h-10 text-white" />}
+          {isRecording && <div className="absolute inset-0 rounded-full md:rounded-lg bg-red-500 animate-pulse"></div>}
+          {isRecording ? <StopIcon className="w-8 h-8 md:w-6 md:h-6 text-white" /> : <MicIcon className="w-8 h-8 md:w-6 md:h-6 text-white" />}
+           <span className="hidden md:inline md:ml-2 font-semibold">
+            {isRecording ? 'Stop' : 'Record'}
+          </span>
         </button>
-        {error && <p className="text-red-400">{error}</p>}
+        {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
     </div>
   );
 };
