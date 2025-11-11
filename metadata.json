@@ -1,0 +1,7 @@
+{
+  "name": "AI Dream Journal",
+  "description": "Record your dreams with your voice, and let AI transcribe them, generate surrealist art, provide a psychological interpretation, and answer your questions.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
