@@ -10,6 +10,7 @@ This is a multi-modal Dream Journal application that allows users to voice-recor
 - **Interactive Dream Chat**: Dive deeper into your dream's meaning. An interactive chat interface allows you to ask follow-up questions about specific symbols, characters, or feelings that appeared in your dream.
 - **Persistent Journaling**: Your dreams are automatically saved to your browser's local storage, creating a personal dream archive you can revisit anytime.
 - **Tagging and Search**: Organize your dreams by adding custom tags. A powerful search function allows you to instantly find dreams by keywords in the transcription or by your tags.
+- **Multilingual Support**: Record, analyze, and discuss your dreams in multiple languages, including English, Spanish, French, and more.
 
 ## Tech Stack
 
@@ -23,32 +24,64 @@ This is a multi-modal Dream Journal application that allows users to voice-recor
 
 ### Prerequisites
 
-- A modern web browser with microphone access.
+- A modern web browser with microphone access (e.g., Chrome, Firefox, Edge).
 - A Google Gemini API key.
 
 ### Setup
 
-1.  **Clone the repository** (or download the files).
+1.  **Download the project files.**
 2.  **API Key Configuration**: This application is designed to run in an environment where the Google Gemini API key is provided as an environment variable `process.env.API_KEY`. Make sure this variable is available in your execution context.
-3.  **Run the application**: Serve the `index.html` file using a local web server. All dependencies are loaded via an import map, so no `npm install` is required for the frontend libraries.
+3.  **Run the application**: Since this is a simple client-side application with no build step, you can serve the `index.html` file using a local web server. One of the easiest ways is to use Python's built-in server:
+    ```bash
+    # If you have Python 3
+    python -m http.server
+    ```
+    Then, open your browser and navigate to `http://localhost:8000`.
+
+## How to Use
+
+1.  **Select Language**: Use the globe icon to select the language you will be speaking in.
+2.  **Record Dream**: Click the "Record" button on the main screen to start capturing your dream.
+3.  **Speak Freely**: Describe your dream in as much detail as you can.
+4.  **Stop Recording**: Click the "Stop" button when you are finished.
+5.  **AI Analysis**: Wait a few moments as the AI transcribes your voice, generates a visual representation, and provides a psychological interpretation.
+6.  **Explore**: Once processed, you can view the dream's artwork, read the transcription and analysis, and add descriptive tags.
+7.  **Chat**: Use the chat panel to ask follow-up questions about your dream for deeper insights.
+8.  **Return to Journal**: Click "Return to Journal" to go back to your dream archive, where you can search and revisit all your saved entries.
 
 ## File Structure
 
 ```
 .
-├── index.html              # Main HTML entry point
-├── index.tsx               # React application root
-├── App.tsx                 # Main application component, manages state and views
-├── components/             # Reusable React components
-│   ├── DreamChat.tsx       # Chat interface for dream exploration
-│   ├── DreamDisplay.tsx    # Displays dream image, text, and interpretation
-│   ├── DreamRecorder.tsx   # Handles voice recording and transcription
-│   ├── Loader.tsx          # Loading animation component
-│   └── icons.tsx           # SVG icon components
+├── index.html                # Main HTML entry point
+├── index.tsx                 # React application root
+├── App.tsx                   # Main application component, manages state and views
+├── components/               # Reusable React components
+│   ├── DreamChat.tsx         # Chat interface for dream exploration
+│   ├── DreamDisplay.tsx      # Displays dream image, text, and interpretation
+│   ├── DreamRecorder.tsx     # Handles voice recording and transcription
+│   ├── LanguageSelector.tsx  # Component for language selection
+│   ├── Loader.tsx            # Loading animation component
+│   └── icons.tsx             # SVG icon components
 ├── services/
-│   └── geminiService.ts    # Module for all Gemini API interactions
+│   └── geminiService.ts      # Module for all Gemini API interactions
 ├── utils/
-│   └── audio.ts            # Audio utility functions for the Live API
-├── types.ts                # TypeScript type definitions
-└── metadata.json           # Application metadata, including permissions
+│   └── audio.ts              # Audio utility functions for the Live API
+├── types.ts                  # TypeScript type definitions
+├── metadata.json             # Application metadata, including permissions
+└── readme.md                 # This file
 ```
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements or find a bug, please feel free to open an issue or submit a pull request.
+
+1.  Fork the repository.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
