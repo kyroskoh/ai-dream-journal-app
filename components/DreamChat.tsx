@@ -18,7 +18,7 @@ const DreamChat: React.FC<DreamChatProps> = ({ dreamData }) => {
 
   useEffect(() => {
     if (dreamData) {
-      chatRef.current = createDreamChat(dreamData.transcription, dreamData.interpretation);
+      chatRef.current = createDreamChat(dreamData.transcription, dreamData.interpretation, dreamData.language);
       setMessages([
         { role: 'model', text: 'Ask me anything about your dream.' }
       ]);

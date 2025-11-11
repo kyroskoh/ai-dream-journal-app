@@ -13,6 +13,7 @@ export interface DreamData {
   imageUrl: string;
   interpretation: string;
   tags: string[];
+  language: string;
 }
 
 export interface ChatMessage {

@@ -7,12 +7,14 @@ import DreamChat from './components/DreamChat';
 import Loader from './components/Loader';
 import { generateDreamImage, interpretDream } from './services/geminiService';
 import { LogoIcon, SearchIcon } from './components/icons';
+import LanguageSelector from './components/LanguageSelector';
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
   const [dreamHistory, setDreamHistory] = useState<DreamData[]>([]);
   const [currentDream, setCurrentDream] = useState<DreamData | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [language, setLanguage] = useState('English');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -64,8 +66,8 @@ const App: React.FC = () => {
     setAppState(AppState.PROCESSING);
     try {
       const [imageUrl, interpretation] = await Promise.all([
-        generateDreamImage(transcription),
-        interpretDream(transcription),
+        generateDreamImage(transcription, language),
+        interpretDream(transcription, language),
       ]);
 
       const newDream: DreamData = {
@@ -75,6 +77,7 @@ const App: React.FC = () => {
         imageUrl,
         interpretation,
         tags: [],
+        language,
       };
       
       setDreamHistory(prev => [newDream, ...prev]);
@@ -86,7 +89,7 @@ const App: React.FC = () => {
       setError("An error occurred while analyzing your dream. Please try again.");
       setAppState(AppState.IDLE);
     }
-  }, []);
+  }, [language]);
   
   const handleReturnToJournal = () => {
     setAppState(AppState.IDLE);
@@ -150,6 +153,7 @@ const App: React.FC = () => {
                         className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 pl-10 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     />
                 </div>
+                <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
                 <DreamRecorder onRecordingStart={handleRecordingStart} onRecordingFinish={handleRecordingFinish} />
             </div>
 
@@ -180,7 +184,7 @@ const App: React.FC = () => {
         {appState === AppState.RECORDING && (
            <div className="text-center">
              <h2 className="text-4xl font-bold mb-2 text-purple-300 animate-pulse">Listening...</h2>
-             <p className="text-lg text-gray-400 mb-8">Speak freely. Your dream is being transcribed.</p>
+             <p className="text-lg text-gray-400 mb-8">Speak freely in {language}. Your dream is being transcribed.</p>
              <DreamRecorder onRecordingStart={() => {}} onRecordingFinish={handleRecordingFinish} isRecordingExternally={true} />
            </div>
         )}
